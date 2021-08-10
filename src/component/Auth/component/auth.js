@@ -8,8 +8,8 @@ import {
 } from "../../Auth/authReducer/authReducer";
 
 const Auth = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("tony@highgroup.nz");
+  const [password, setPassword] = useState("~^>&<Ce>X?8?w;td");
 
   const SubmitAuth = (event) => {
     event.preventDefault();
@@ -20,6 +20,8 @@ const Auth = () => {
     updateAuth(obj);
   };
 
+  console.log(new Date().toString());
+
   return (
     <form onSubmit={SubmitAuth}>
       <div className="container">
@@ -27,6 +29,7 @@ const Auth = () => {
           <b>Email</b>
         </label>
         <input
+          value={email}
           type="text"
           placeholder="Enter email"
           onChange={(event) => setEmail(event.target.value)}
@@ -35,6 +38,7 @@ const Auth = () => {
           <b>Password</b>
         </label>
         <input
+          value={password}
           type="text"
           placeholder="Enter password"
           onChange={(event) => setPassword(event.target.value)}

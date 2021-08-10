@@ -12,8 +12,10 @@ export const [usePermission, { setPermission }] = createReduxModule(
 );
 
 authStore.subscribe(({ email, password }) => {
+  console.log("test");
   setPermission({ loading: true });
   getPermisison(email, password).then((result) => {
+    console.log(result);
     setPermission(result);
     setPermission({ loading: false });
   });
