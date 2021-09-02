@@ -3,27 +3,33 @@ import { SignIn } from "../../../redux/middleware";
 
 import {
   updateAuth,
+  LogIn,
+  signOut,
   useAuth,
-  auth as Test,
 } from "../../Auth/authReducer/authReducer";
 
 const Auth = () => {
+  const { LoggedIn } = useAuth();
   const [email, setEmail] = useState("tony@highgroup.nz");
   const [password, setPassword] = useState("~^>&<Ce>X?8?w;td");
+  console.log(LoggedIn);
 
-  const SubmitAuth = (event) => {
+  const SignIn = (event) => {
     event.preventDefault();
     const obj = {
       email: email,
       password: password,
     };
     updateAuth(obj);
+    LogIn();
+  };
+  const SignOut = (event) => {
+    event.preventDefault();
+    signOut();
   };
 
-  console.log(new Date().toString());
-
   return (
-    <form onSubmit={SubmitAuth}>
+    <form>
       <div className="container">
         <label>
           <b>Email</b>
@@ -43,8 +49,11 @@ const Auth = () => {
           placeholder="Enter password"
           onChange={(event) => setPassword(event.target.value)}
         />
-
-        <button>Register</button>
+        {LoggedIn ? (
+          <button onClick={SignOut}>Log out</button>
+        ) : (
+          <button onClick={SignIn}>Login</button>
+        )}
       </div>
     </form>
   );

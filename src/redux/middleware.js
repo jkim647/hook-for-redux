@@ -28,3 +28,8 @@ export async function getPermisison(email, password) {
     .catch((err) => (result.error = err.message));
   return result;
 }
+
+export async function signOut() {
+  sessionStorage.clear();
+  firebase.auth().signOut();
+}

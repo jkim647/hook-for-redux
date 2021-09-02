@@ -5,18 +5,21 @@ import {
   updateWebOrderList,
   updateLoading,
   updateShowHelpSection,
+  unmountReducer,
 } from "../WebOrderReducer/WebOrderReducer";
 import { Helmet } from "react-helmet";
 import { instance } from "../../../firebaseConfig";
 import { Card, CardContent, Grid, Button, Typography } from "@material-ui/core";
 import { Backup as BackupIcon, Help as HelpIcon } from "@material-ui/icons";
 import Dropdown from "./Dropdown";
+import { useAsyncReducer } from "../../../redux/useAsyncReducer";
 
 export const WebOrders = () => {
+  console.log(useWebOrderList());
   const { loading, orderId } = useWebOrderList();
-  console.log(orderId);
+  console.log("WebOrders");
   useEffect(() => {
-    console.log("UseEffect");
+    console.log(orderId.length);
     updateLoading(true);
     const fetchOutlet = async () => {
       await instance
@@ -38,8 +41,12 @@ export const WebOrders = () => {
         });
     };
     fetchOutlet();
-  }, []);
 
+    return () => {
+      unmountReducer();
+    };
+  }, []);
+  useAsyncReducer();
   return (
     <>
       <Helmet title="Web Orders" defer={false} />
